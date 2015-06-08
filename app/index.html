@@ -6,7 +6,16 @@
     <link rel="stylesheet" href="main.css" type="text/css">
 </head>
 <body>
-Chat
+<div id="app"></div>
+<script type="text/template" name="home">
+    <div>home view</div>
+    <a href="#chat">Chat</a>
+</script>
+<script type="text/template" name="chat">
+    <div>chat view</div>
+    <button class="btn-submit">submit</button>
+    <a href="#home">Home</a>
+</script>
 <script src="app.js"></script>
 </body>
 </html>

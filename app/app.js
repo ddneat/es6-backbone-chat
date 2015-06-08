@@ -1,9 +1,4 @@
+import $ from 'jquery';
+import Backbone from 'backbone';
 import io from 'socket.io-client';
-
-var socket = io.connect('http://localhost:3000');
-
-socket.on('serverReady', function() {
-    setInterval(function(){
-        socket.emit('chat message', 'hello from client!!!!!!!!!!!!!!!!');
-    }, 1000);
-});
+import Router from './js/router';
