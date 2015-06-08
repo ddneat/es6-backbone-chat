@@ -20,7 +20,7 @@ gulp.task('scripts', function() {
             insertGlobals : true,
             debug: true
         }))
-        //.pipe(uglify()) TODO: uncomment
+        .pipe(uglify())
         .pipe(gulp.dest('./dist/'))
 });
 
