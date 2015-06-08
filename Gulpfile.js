@@ -11,6 +11,7 @@ var mocha = require('gulp-mocha');
 var uglify = require('gulp-uglify');
 var autoprefixer = require('gulp-autoprefixer');
 var nodemon = require('gulp-nodemon');
+var folderToc = require("folder-toc");
 
 gulp.task('scripts', function() {
     return gulp.src('./app/app.js')
@@ -20,7 +21,7 @@ gulp.task('scripts', function() {
             insertGlobals : true,
             debug: true
         }))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest('./dist/'))
 });
 
@@ -74,9 +75,26 @@ gulp.task('coverage', ['chatserver', 'build'], function() {
 });
 
 gulp.task('docco', function() {
-    return gulp.src("./js/*.js")
+    gulp.src(['./app/**/*.js', './server/**/*.js'])
         .pipe(docco())
-        .pipe(gulp.dest('./documentation-output'))
+        .pipe(gulp.dest('./documentation'));
+
+    folderToc('./documentation', {
+        name : 'index.html',
+        layout: 'classic',
+        filter: '*.html',
+        title: 'Overview'
+    });
+});
+
+gulp.task('doccoserver', ['docco'], function (cb) {
+    return gulp.src('./documentation')
+        .pipe(webserver({
+            fallback: 'app.html',
+            livereload: false,
+            directoryListing: false,
+            open: true
+        }));
 });
 
 gulp.task('mocha', function () {
@@ -101,10 +119,11 @@ gulp.task('coverage', function (cb) {
 gulp.task('watch', function () {
     gulp.watch('./app/**/*.scss', ['sass']);
     gulp.watch('./app/**/*.js', ['scripts']);
+    gulp.watch('./app/**/*.html', ['html']);
 });
 
 gulp.task('default', ['serve', 'watch']);
 gulp.task('serve', ['webserver']);
 gulp.task('build', ['sass', 'scripts', 'html']);
 gulp.task('test', ['mocha', 'coverage']);
-gulp.task('doc', ['docco']);
+gulp.task('doc', ['doccoserver']);
