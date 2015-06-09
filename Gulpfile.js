@@ -12,6 +12,8 @@ var uglify = require('gulp-uglify');
 var autoprefixer = require('gulp-autoprefixer');
 var nodemon = require('gulp-nodemon');
 var folderToc = require("folder-toc");
+var mochaBabel = require("mocha-babel");
+
 
 gulp.task('scripts', function() {
     return gulp.src('./app/app.js')
@@ -99,7 +101,7 @@ gulp.task('doccoserver', ['docco'], function (cb) {
 
 gulp.task('mocha', function () {
     return gulp.src('test/**/*Spec.js', {read: false})
-        .pipe(mocha({reporter: 'nyan', compilers:'js:babel-core/register'}));
+        .pipe(mocha({reporter: 'nyan', compilers: {js: mochaBabel}}));
 });
 
 gulp.task('coverage', function (cb) {
