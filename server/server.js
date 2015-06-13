@@ -1,6 +1,22 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var mongoose = require('mongoose');
+
+http.listen(3000, function(){
+    console.log('Chat listening on *:3000');
+});
+
+mongoose.connect('mongodb://localhost/chat_probst_neubauer', function(err) {
+    if(err) throw err;
+    console.log('MongoDB Connected');
+});
+
+var userSchema = mongoose.Schema({
+    userName: String
+});
+
+var User = mongoose.model('Users', userSchema);
 
 app.get('/', function(req, res) {
     res.send('Hello!');
@@ -9,8 +25,15 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket) {
     socket.emit('serverReady');
 
+    socket.user = new User({userName: 'testuser'});
+    socket.user.save(function(err) {
+        console.log('newUser');
+    });
+
     socket.on('disconnect', function() {
-        console.log('user disconnected');
+        User.remove(socket.user, function() {
+            console.log('user disconnected');
+        });
     });
 
     socket.on('newUser', function(msg) {
@@ -41,8 +64,4 @@ io.on('connection', function(socket) {
         console.log('leave room: ' + msg);
         socket.emit('userLeft', { message: 'dummy' });
     });
-});
-
-http.listen(3000, function(){
-    console.log('Chat listening on *:3000');
 });
