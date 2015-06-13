@@ -39,8 +39,10 @@ class ChatView extends Backbone.View {
     // The returned object will be resolved and set as events property.
     events() {
         return {
-            'click .btn-submit': 'submitMessage',
-            'keyup .input-message': 'submitOnEnter'
+            'click .btn-submit--message': 'submitMessage',
+            'click .btn-submit--room': 'submitRoom',
+            'keyup .input-message': 'submitMessageOnEnter',
+            'keyup .input-room': 'submitRoomOnEnter'
         }
     }
 
@@ -68,16 +70,32 @@ class ChatView extends Backbone.View {
         return this;
     }
 
-    submitOnEnter() {
-        if(event.keyCode == 13) {
-            this.submitMessage();
-        }
+    isEnterKeyCode(event) {
+        return event.keyCode == 13;
+    }
+
+    submitMessageOnEnter() {
+        this.isEnterKeyCode(event) && this.submitMessage();
+    }
+
+    submitRoomOnEnter() {
+        this.isEnterKeyCode(event) && this.submitRoom();
     }
 
     submitMessage() {
         var text = this.$el.find('.input-message').val();
-        console.log('submit called', text);
-        this.$el.find('.input-message').val('');
+        if(text.length) {
+            console.log('submit message called', text);
+            this.$el.find('.input-message').val('');
+        }
+    }
+
+    submitRoom() {
+        var text = this.$el.find('.input-room').val();
+        if(text.length) {
+            console.log('submit room called', text);
+            this.$el.find('.input-room').val('');
+        }
     }
 
 }

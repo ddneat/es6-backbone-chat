@@ -10,6 +10,7 @@ body, html {
 ul, ol {
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
 ::-moz-selection { background: #555; color: #fff; }
@@ -19,6 +20,7 @@ button, input[type=text], input[type=url],  input[type=password],  input[type=em
   appearance: none;
   -webkit-appearance: none;
   border-radius: 0;
+  border: none;
 }
 
 input[placeholder], [placeholder], *[placeholder] {
