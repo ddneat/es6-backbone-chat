@@ -17,10 +17,29 @@
     <button class="btn-submit">submit</button>
 
     <div id="id">
+        users:
         <ul data-role="listview" data-inset="true", data-filter="true">
             <% _.each(users, function(user) { %>
             <li>
                 <div class="name"><%= user.title %></div>
+            </li>
+            <% }); %>
+        </ul>
+
+        rooms:
+        <ul data-role="listview" data-inset="true", data-filter="true">
+            <% _.each(rooms, function(room) { %>
+            <li>
+                <div class="name"><%= room.title %></div>
+            </li>
+            <% }); %>
+        </ul>
+
+        messages:
+        <ul data-role="listview" data-inset="true", data-filter="true">
+            <% _.each(messages, function(message) { %>
+            <li>
+                <div class="name"><%= message.message %></div>
             </li>
             <% }); %>
         </ul>

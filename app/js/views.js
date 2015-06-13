@@ -1,8 +1,9 @@
 import $ from 'jquery';
 import _ from 'underscore';
 import Backbone from 'backbone';
-//import Chat from './chat';
-import UsersCollection from './usersCollection';
+import RoomCollection from './roomCollection';
+import UserCollection from './userCollection';
+import MessageCollection from './messageCollection';
 
 class HomeView extends Backbone.View {
 
@@ -20,7 +21,11 @@ class HomeView extends Backbone.View {
 class ChatView extends Backbone.View {
 
     constructor() {
-        super({model: UsersCollection});
+        super();
+
+        this.roomsCollection = RoomCollection;
+        this.usersCollection = UserCollection;
+        this.messageCollection = MessageCollection;
     }
 
     // Events Property
@@ -40,12 +45,12 @@ class ChatView extends Backbone.View {
     }
 
     render() {
-        if(this.model.length) {
-            this.$el.show().html(this.template({users: this.model.toJSON()}));
-            return this;
-        }
+        this.$el.show().html(this.template({
+            rooms: this.roomsCollection.toJSON(),
+            users: this.usersCollection.toJSON(),
+            messages: this.messageCollection.toJSON()
+        }));
 
-        this.$el.hide();
         return this;
     }
 

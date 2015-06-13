@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import Backbone from 'backbone';
 import { HomeView, ChatView } from './views';
-import UsersCollection from './usersCollection';
 
 export default class Router extends Backbone.Router {
     constructor() {
@@ -21,7 +20,7 @@ export default class Router extends Backbone.Router {
     }
 
     chat() {
-        var view = new ChatView({model: UsersCollection});
+        var view = new ChatView();
         $('#app').html(view.render().$el);
     }
 
