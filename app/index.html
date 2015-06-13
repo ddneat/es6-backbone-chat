@@ -11,6 +11,15 @@
         <div>home view</div>
         <a href="#chat">Chat</a>
     </script>
+    <script type="text/template" name="messages">
+        <ul class="messages-list">
+            <% _.each(messages, function(message) { %>
+            <li class="messages-list__item">
+                <div class="messages-list__title"><%= message.message %></div>
+            </li>
+            <% }); %>
+        </ul>
+    </script>
     <script type="text/template" name="chat">
         <aside class="view-chat__sidebar">
             <a href="#home">Home</a>
@@ -36,13 +45,6 @@
             </ul>
         </aside>
         <div class="view-chat__messages">
-            <ul class="messages-list">
-                <% _.each(messages, function(message) { %>
-                <li class="messages-list__item">
-                    <div class="messages-list__title"><%= message.message %></div>
-                </li>
-                <% }); %>
-            </ul>
             <div class="view-chat__messages__input">
                 <form>
                     <input type="text" class="input-message">

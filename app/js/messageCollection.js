@@ -10,17 +10,16 @@ class MessageCollection extends Backbone.Collection {
         this.model = MessageModel;
 
         IOSocket.on('message', (res) => {
-            console.log('Server', res);
-            this.create({message: res.message});
+            this.add({message: res.message});
         });
 
-        setTimeout(() => {
+        setInterval(() => {
             console.log('Emit');
             IOSocket.emit('newMessage', 'Some text');
-        }, 500);
+        }, 1000);
 
-        this.create({message: 'Some text'});
-        this.create({message: 'Another text'});
+        this.add({message: 'Some text'});
+        this.add({message: 'Another text'});
     }
 
 }

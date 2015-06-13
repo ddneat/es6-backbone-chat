@@ -22,6 +22,26 @@ class HomeView extends Backbone.View {
 
 }
 
+class MessageView extends Backbone.View {
+    constructor() {
+        super({collection: MessageCollection});
+    }
+
+    initialize() {
+        this.listenTo(this.collection, 'add', this.render);
+
+        this.template = _.template($('script[name="messages"]').html());
+    }
+
+    render() {
+        this.$el.show().html(this.template({
+            messages: this.collection.toJSON()
+        }));
+
+        return this;
+    }
+}
+
 class ChatView extends Backbone.View {
 
     constructor() {
@@ -29,8 +49,6 @@ class ChatView extends Backbone.View {
 
         this.roomsCollection = RoomCollection;
         this.usersCollection = UserCollection;
-        this.messageCollection = MessageCollection;
-
     }
 
     // Events Property
@@ -55,17 +73,18 @@ class ChatView extends Backbone.View {
     }
 
     initialize() {
-        this.listenTo(this.model, 'all', this.render);
-
         this.template = _.template($('script[name="chat"]').html());
     }
 
     render() {
-        this.$el.show().html(this.template({
+
+        this.$el.html(this.template({
             rooms: this.roomsCollection.toJSON(),
-            users: this.usersCollection.toJSON(),
-            messages: this.messageCollection.toJSON()
+            users: this.usersCollection.toJSON()
         }));
+
+        var messageView = new MessageView();
+        this.$el.find('.view-chat__messages').prepend(messageView.render().$el);
 
         return this;
     }
