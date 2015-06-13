@@ -1,7 +1,8 @@
 import $ from 'jquery';
 import _ from 'underscore';
 import Backbone from 'backbone';
-import Chat from './chat';
+//import Chat from './chat';
+import UsersCollection from './usersCollection';
 
 class HomeView extends Backbone.View {
 
@@ -33,10 +34,14 @@ class ChatView extends Backbone.View {
     }
 
     initialize() {
+
+        this.listenTo(UsersCollection, 'all', this.render);
+
         this.template = $('script[name="chat"]').html();
     }
 
     render() {
+        console.log(UsersCollection.length);
         this.$el.html(_.template(this.template));
         return this;
     }

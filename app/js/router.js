@@ -2,7 +2,7 @@ import $ from 'jquery';
 import Backbone from 'backbone';
 import { HomeView, ChatView } from './views';
 
-class Router extends Backbone.Router {
+export default class Router extends Backbone.Router {
     constructor() {
         super();
         Backbone.history.start();
@@ -31,5 +31,3 @@ class Router extends Backbone.Router {
         $('#app').html(view.render().$el);
     }
 }
-
-export default new Router();

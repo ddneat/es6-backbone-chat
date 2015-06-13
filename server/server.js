@@ -13,29 +13,33 @@ io.on('connection', function(socket) {
         console.log('user disconnected');
     });
 
-    socket.on('newMessage', function(msg) {
-        console.log('new message: ' + msg);
-        socket.emit('message', { message: 'world', user: 'test' });
-    });
-
     socket.on('newUser', function(msg) {
         console.log('new user: ' + msg);
     });
 
+    socket.on('newMessage', function(msg) {
+        console.log('new message: ' + msg);
+        io.emit('message', { message: 'world', user: 'test' });
+    });
+
     socket.on('newRoom', function(msg) {
         console.log('new room: ' + msg);
+        socket.emit('roomsChanged', { message: 'dummy' });
     });
 
     socket.on('removeRoom', function(msg) {
         console.log('remove room: ' + msg);
+        socket.emit('roomsChanged', { message: 'dummy' });
     });
 
     socket.on('joinRoom', function(msg) {
         console.log('join room: ' + msg);
+        socket.emit('userJoined', { message: 'dummy' });
     });
 
     socket.on('leaveRoom', function(msg) {
         console.log('leave room: ' + msg);
+        socket.emit('userLeft', { message: 'dummy' });
     });
 });
 
