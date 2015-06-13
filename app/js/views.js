@@ -7,6 +7,10 @@ import MessageCollection from './messageCollection';
 
 class HomeView extends Backbone.View {
 
+    className() {
+        return 'view-home';
+    }
+
     initialize() {
         this.template = $('script[name="home"]').html();
     }
@@ -21,7 +25,7 @@ class HomeView extends Backbone.View {
 class ChatView extends Backbone.View {
 
     constructor() {
-        super();
+        super(...arguments);
 
         this.roomsCollection = RoomCollection;
         this.usersCollection = UserCollection;
@@ -38,6 +42,14 @@ class ChatView extends Backbone.View {
             'click .btn-submit': 'submitMessage',
             'keyup .input-message': 'submitOnEnter'
         }
+    }
+
+    // ClassName Property
+    // -----
+    // Backbone calls this function in the super constructor.
+    // The returned object will be resolved and set as property.
+    className() {
+        return 'view-chat';
     }
 
     initialize() {

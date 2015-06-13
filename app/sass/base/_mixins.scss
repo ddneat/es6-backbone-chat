@@ -1,0 +1,21 @@
+@mixin ellipsis() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin transition($property: all, $duration: 0.15s, $effect: ease-in) {
+  transition: $property $duration;
+}
+
+@mixin breakpoint($point) {
+  @if $point == desktop {
+    @media (min-width: 64em) { @content ; }
+  }
+  @else if $point == tablet {
+    @media (max-width: 37.5em)  { @content ; }
+  }
+  @else if $point == mobile-only {
+    @media (max-width: 37.5em)  { @content ; }
+  }
+}

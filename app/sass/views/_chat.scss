@@ -1,0 +1,28 @@
+$sidebar-width: 400px;
+$message-input-height: 80px;
+
+.view-chat {
+  position: relative;
+  height: 100%;
+  padding-right: $sidebar-width;
+}
+
+.view-chat__sidebar {
+  position: absolute;
+  right: 0;
+  width: $sidebar-width;
+}
+
+.view-chat__messages {
+  position: relative;
+  height: 100%;
+  padding-bottom: $message-input-height;
+}
+
+.view-chat__messages__input {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: $message-input-height;
+}

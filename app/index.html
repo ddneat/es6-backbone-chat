@@ -6,46 +6,45 @@
     <link rel="stylesheet" href="main.css" type="text/css">
 </head>
 <body>
-<div id="app"></div>
-<script type="text/template" name="home">
-    <div>home view</div>
-    <a href="#chat">Chat</a>
-</script>
-<script type="text/template" name="chat">
-    <a href="#home">Home</a>
-    <div>chat view</div>
-    <input type="text" class="input-message">
-    <button class="btn-submit">submit</button>
-
-    <div id="id">
-        users:
-        <ul data-role="listview" data-inset="true", data-filter="true">
-            <% _.each(users, function(user) { %>
-            <li>
-                <div class="name"><%= user.title %></div>
-            </li>
-            <% }); %>
-        </ul>
-
-        rooms:
-        <ul data-role="listview" data-inset="true", data-filter="true">
-            <% _.each(rooms, function(room) { %>
-            <li>
-                <div class="name"><%= room.title %></div>
-            </li>
-            <% }); %>
-        </ul>
-
-        messages:
-        <ul data-role="listview" data-inset="true", data-filter="true">
-            <% _.each(messages, function(message) { %>
-            <li>
-                <div class="name"><%= message.message %></div>
-            </li>
-            <% }); %>
-        </ul>
-    </div>
-</script>
-<script src="app.js"></script>
+    <div id="app"></div>
+    <script type="text/template" name="home">
+        <div>home view</div>
+        <a href="#chat">Chat</a>
+    </script>
+    <script type="text/template" name="chat">
+        <aside class="view-chat__sidebar">
+            <a href="#home">Home</a>
+            <nav class="view-chat__sidebar__nav">
+                <ul class="interaction-list interaction-list--room">
+                    <% _.each(rooms, function(room) { %>
+                    <li class="interaction-list__item interaction-list--room__item">
+                        <div class="interaction-list__title interaction-list--room__title"><%= room.title %></div>
+                    </li>
+                    <% }); %>
+                </ul>
+            </nav>
+            <ul class="interaction-list interaction-list--user">
+                <% _.each(users, function(user) { %>
+                <li class="interaction-list__item interaction-list--user__item">
+                    <div class="interaction-list__title interaction-list--user__item"><%= user.title %></div>
+                </li>
+                <% }); %>
+            </ul>
+        </aside>
+        <div class="view-chat__messages">
+            <ul class="messages-list">
+                <% _.each(messages, function(message) { %>
+                <li class="messages-list__item">
+                    <div class="messages-list__title"><%= message.message %></div>
+                </li>
+                <% }); %>
+            </ul>
+            <div class="view-chat__messages__input">
+                <input type="text" class="input-message">
+                <button class="btn-submit">submit</button>
+            </div>
+        </div>
+    </script>
+    <script src="app.js"></script>
 </body>
 </html>
