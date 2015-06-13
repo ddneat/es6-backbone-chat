@@ -20,7 +20,7 @@ class HomeView extends Backbone.View {
 class ChatView extends Backbone.View {
 
     constructor() {
-        super();
+        super({model: UsersCollection});
     }
 
     // Events Property
@@ -34,15 +34,18 @@ class ChatView extends Backbone.View {
     }
 
     initialize() {
+        this.listenTo(this.model, 'all', this.render);
 
-        this.listenTo(UsersCollection, 'all', this.render);
-
-        this.template = $('script[name="chat"]').html();
+        this.template = _.template($('script[name="chat"]').html());
     }
 
     render() {
-        console.log(UsersCollection.length);
-        this.$el.html(_.template(this.template));
+        if(this.model.length) {
+            this.$el.show().html(this.template({users: this.model.toJSON()}));
+            return this;
+        }
+
+        this.$el.hide();
         return this;
     }
 

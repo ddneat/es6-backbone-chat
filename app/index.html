@@ -12,9 +12,19 @@
     <a href="#chat">Chat</a>
 </script>
 <script type="text/template" name="chat">
+    <a href="#home">Home</a>
     <div>chat view</div>
     <button class="btn-submit">submit</button>
-    <a href="#home">Home</a>
+
+    <div id="id">
+        <ul data-role="listview" data-inset="true", data-filter="true">
+            <% _.each(users, function(user) { %>
+            <li>
+                <div class="name"><%= user.title %></div>
+            </li>
+            <% }); %>
+        </ul>
+    </div>
 </script>
 <script src="app.js"></script>
 </body>
