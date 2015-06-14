@@ -4,8 +4,9 @@
 @import 'base/_colors';
 
 @import 'components/_form';
-@import 'components/_interaction-list';
-@import 'components/_messages-list';
+@import 'components/_message-list';
+@import 'components/_room-list';
+@import 'components/_user-list';
 
 @import 'views/_chat';
 @import 'views/_home';

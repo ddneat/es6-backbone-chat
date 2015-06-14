@@ -11,40 +11,41 @@
         <div>home view</div>
         <a href="#chat">Chat</a>
     </script>
-    <script type="text/template" name="messages">
-        <ul class="messages-list">
-            <% _.each(messages, function(message) { %>
-            <li class="messages-list__item">
-                <div class="messages-list__title"><%= message.message %></div>
-            </li>
-            <% }); %>
-        </ul>
+    <script type="text/template" name="message">
+        <% _.each(messages, function(message) { %>
+        <li class="message-list__item">
+            <div class="message-list__title"><%= message.message %></div>
+        </li>
+        <% }); %>
+    </script>
+    <script type="text/template" name="room">
+        <% _.each(rooms, function(room) { %>
+        <li class="room-list__item">
+            <div class="room-list__title"><%= room.title %></div>
+        </li>
+        <% }); %>
+    </script>
+    <script type="text/template" name="user">
+        <% _.each(users, function(user) { %>
+        <li class="user-list__item">
+            <div class="user-list__title"><%= user.title %></div>
+        </li>
+        <% }); %>
     </script>
     <script type="text/template" name="chat">
         <aside class="view-chat__sidebar">
             <a href="#home">Home</a>
             <nav class="view-chat__sidebar__nav">
-                <ul class="interaction-list interaction-list--room">
-                    <% _.each(rooms, function(room) { %>
-                    <li class="interaction-list__item interaction-list--room__item">
-                        <div class="interaction-list__title interaction-list--room__title"><%= room.title %></div>
-                    </li>
-                    <% }); %>
-                </ul>
+                <!-- room-list renders here -->
                 <form>
                     <input placeholder="Create Room" type="text" class="input-room">
                     <button class="btn-submit btn-submit--room">submit</button>
                 </form>
             </nav>
-            <ul class="interaction-list interaction-list--user">
-                <% _.each(users, function(user) { %>
-                <li class="interaction-list__item interaction-list--user__item">
-                    <div class="interaction-list__title interaction-list--user__item"><%= user.title %></div>
-                </li>
-                <% }); %>
-            </ul>
+            <!-- user-list renders here -->
         </aside>
         <div class="view-chat__messages">
+            <!-- message-list renders here -->
             <div class="view-chat__messages__input">
                 <form>
                     <input type="text" class="input-message">
