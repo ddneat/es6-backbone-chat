@@ -9,6 +9,7 @@ http.listen(3000, function(){
 
 mongoose.connect('mongodb://localhost/chat_probst_neubauer', function(err) {
     if(err) throw err;
+    mongoose.connection.db.dropDatabase();//TODO: remove in production
     console.log('MongoDB Connected');
 });
 
@@ -26,12 +27,26 @@ var roomSchema = mongoose.Schema({
 
 var Room = mongoose.model('Rooms', roomSchema);
 
+var lobby = {};
+Room.findOne({roomName: 'lobby'}, function(err) {
+    if (err) throw err;
+    lobby = new Room({roomName: 'lobby', owner: {}});
+    lobby.save(function(err) {
+    });
+});
+
 app.get('/', function(req, res) {
     res.send('Hello!');
 });
 
 io.on('connection', function(socket) {
     socket.emit('serverReady');
+    Room.findOne({roomName: 'lobby'}, function(err, room) {
+        if (err) throw err;
+        socket.room = room;
+        socket.join('lobby');
+        socket.emit('userJoined', { room: room });
+    });
 
     Room.find({}, function(err, rooms) {
         if (err) throw err;
@@ -63,7 +78,7 @@ io.on('connection', function(socket) {
     }
 
     socket.on('newMessage', function(msg) {
-        io.emit('message', { message: msg, user: socket.user });
+        io.to(socket.room.roomName).emit('message', { message: msg, user: socket.user });
     });
 
     socket.on('newRoom', function(roomName) {
@@ -96,7 +111,6 @@ io.on('connection', function(socket) {
 
             leaveAllRooms(socket);
             socket.room = room;
-            console.log(socket.rooms);
             socket.join(room.roomName);
             socket.emit('userJoined', { room: room });
         });

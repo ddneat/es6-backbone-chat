@@ -117,6 +117,7 @@ class ChatView extends Backbone.View {
         e.stopPropagation();
         var roomId = $(e.currentTarget).find('.btn-remove').data('room-id');
         console.log('join:', roomId);
+        MessageCollection.reset();
         IOSocket.emit('joinRoom', roomId);
     }
 
