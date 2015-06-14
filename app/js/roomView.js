@@ -25,7 +25,7 @@ export default class RoomView extends Backbone.View {
     }
 
     initialize() {
-        this.listenTo(this.collection, 'add', this.render);
+        this.listenTo(this.collection, 'all', this.render);
 
         this.template = _.template($('script[name="room"]').html());
     }

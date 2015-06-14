@@ -73,7 +73,7 @@ io.on('connection', function(socket) {
 
     socket.on('removeRoom', function(roomId) {
         Room.findOne({'_id': roomId}, function(err, room) {
-            if(room && (room.owner._id.equals(socket.user._id))) {
+            if(room && room.owner && (room.owner._id.equals(socket.user._id))) {
                 room.remove(function() {
                     Room.find({}, function(err, rooms) {
                         if (err) throw err;
