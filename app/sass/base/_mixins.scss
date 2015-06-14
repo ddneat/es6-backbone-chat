@@ -1,3 +1,6 @@
+$gutter: 20px;
+$footer-height: 80px;
+
 @mixin ellipsis() {
   overflow: hidden;
   white-space: nowrap;
