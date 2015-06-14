@@ -33,11 +33,9 @@ export default class MessageView extends Backbone.View {
     render() {
         this.$el.html(this.template({
             messages: this.collection.toJSON()
-        }));
-
-/*        .animate({
-            scrollTop: $('.message-list').scrollHeight
-        }, 300);*/
+        })).animate({
+            scrollTop: this.$el[0].scrollHeight
+        }, 0);
 
         return this;
     }
