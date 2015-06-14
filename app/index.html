@@ -16,7 +16,10 @@
     <script type="text/template" name="message">
         <% _.each(messages, function(message) { %>
         <li class="message-list__item">
-            <div class="message-list__title"><%= message.user.userName %>: <%= message.message %></div>
+            <div class="message-list__content">
+                <div class="message-list__user"><%= message.user.userName %></div>
+                <div class="message-list__title"><%= message.message %></div>
+            </div>
         </li>
         <% }); %>
     </script>
