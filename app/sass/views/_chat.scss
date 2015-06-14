@@ -1,0 +1,71 @@
+$sidebar-width: 400px;
+$message-input-height: 40px;
+$submit-button-width: 120px;
+
+.view-chat {
+  position: relative;
+  height: 100%;
+  padding-right: $sidebar-width;
+}
+
+.view-chat__sidebar {
+  position: absolute;
+  right: 0;
+  width: $sidebar-width;
+
+  form {
+    position: relative;
+  }
+
+  input {
+    width: 100%;
+    padding: 15px ($submit-button-width + 15px) 15px 15px;
+    height: $message-input-height;
+    line-height: $message-input-height;
+    background: #ddd;
+    color: #000;
+  }
+
+  button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: $submit-button-width;
+    height: $message-input-height;
+  }
+}
+
+.view-chat__messages {
+  position: relative;
+  height: 100%;
+  padding: 20px 20px $message-input-height + 40px 20px;
+}
+
+.view-chat__messages__input {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
+  height: $message-input-height + 40px;
+
+  form {
+    position: relative;
+  }
+
+  input {
+    width: 100%;
+    padding: 15px ($submit-button-width + 15px) 15px 15px;
+    height: $message-input-height;
+    line-height: $message-input-height;
+    background: #aaa;
+  }
+
+  button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: $submit-button-width;
+    height: $message-input-height;
+  }
+}

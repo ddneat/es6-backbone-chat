@@ -1,6 +1,6 @@
 import Backbone from 'backbone';
 
-export default class User extends Backbone.Model {
+export default class Room extends Backbone.Model {
 
     constructor() {
         super(...arguments);
@@ -8,7 +8,7 @@ export default class User extends Backbone.Model {
 
     defaults() {
         return {
-            title: 'User'
+            title: 'Room-0'
         };
     }
 

@@ -1,0 +1,20 @@
+.room-list {
+}
+
+.room-list__item {
+  padding: 5px;
+  background: #ccc;
+  cursor: pointer;
+
+  &:hover, &:focus {
+    background: #a9a9a9;
+  }
+
+  &.active {
+    background: green;
+  }
+}
+
+.room-list__title {
+
+}

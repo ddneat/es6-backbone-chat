@@ -20,13 +20,11 @@ export default class Router extends Backbone.Router {
     }
 
     chat() {
-        console.log('chat');
         var view = new ChatView();
         $('#app').html(view.render().$el);
     }
 
     default() {
-        console.log('home');
         var view = new HomeView();
         $('#app').html(view.render().$el);
     }
