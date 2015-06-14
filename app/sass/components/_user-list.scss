@@ -5,6 +5,7 @@
   padding: 5px;
   background: #ccc;
   cursor: pointer;
+  @include transition();
 
   &:hover, &:focus {
     background: #a9a9a9;

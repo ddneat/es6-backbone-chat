@@ -33,8 +33,6 @@ class ChatView extends Backbone.View {
 
     constructor() {
         super(...arguments);
-
-        this.usersCollection = UserCollection;
     }
 
     // Events Property
@@ -64,10 +62,7 @@ class ChatView extends Backbone.View {
     }
 
     render() {
-
-        this.$el.html(this.template({
-            users: this.usersCollection.toJSON()
-        }));
+        this.$el.html(this.template);
 
         var messageView = new MessageView();
         this.$el.find('.view-chat__messages').prepend(messageView.render().$el);

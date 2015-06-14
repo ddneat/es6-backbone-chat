@@ -1,27 +1,18 @@
-$sidebar-width: 400px;
-$message-input-height: 40px;
-$submit-button-width: 120px;
-
 .view-chat {
-  position: relative;
+  width: 100%;
   height: 100%;
-  padding-right: $sidebar-width;
 }
 
 .view-chat__sidebar {
-  position: absolute;
-  right: 0;
-  width: $sidebar-width;
-
   form {
     position: relative;
   }
 
   input {
     width: 100%;
-    padding: 15px ($submit-button-width + 15px) 15px 15px;
-    height: $message-input-height;
-    line-height: $message-input-height;
+    padding: 15px 90px 15px 15px;
+    height: 30px;
+    line-height: 30px;
     background: #ddd;
     color: #000;
   }
@@ -30,34 +21,26 @@ $submit-button-width: 120px;
     position: absolute;
     right: 0;
     bottom: 0;
-    width: $submit-button-width;
-    height: $message-input-height;
+    width: 80px;
+    height: 30px;
   }
 }
 
 .view-chat__messages {
-  position: relative;
   height: 100%;
-  padding: 20px 20px $message-input-height + 40px 20px;
+  overflow: scroll;
 }
 
-.view-chat__messages__input {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  padding: 20px;
-  height: $message-input-height + 40px;
-
+.view-chat__footer {
   form {
     position: relative;
   }
 
   input {
     width: 100%;
-    padding: 15px ($submit-button-width + 15px) 15px 15px;
-    height: $message-input-height;
-    line-height: $message-input-height;
+    padding: 15px 100px 15px 15px;
+    height: 40px;
+    line-height: 100%;
     background: #aaa;
   }
 
@@ -65,7 +48,7 @@ $submit-button-width: 120px;
     position: absolute;
     right: 0;
     bottom: 0;
-    width: $submit-button-width;
-    height: $message-input-height;
+    width: 100px;
+    height: 40px;
   }
 }

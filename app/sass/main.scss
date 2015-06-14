@@ -20,4 +20,36 @@ html, body {
 #app {
   width: 100%;
   height: 100%;
+  position: relative;
+}
+
+.main,
+.aside,
+.footer {
+  width: 100%;
+}
+
+@include breakpoint('desktop') {
+
+  .main {
+    padding-right: 30%;
+    padding-bottom: $footer-height + $gutter;
+  }
+
+  .aside {
+    width: 30%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 $gutter;
+  }
+
+  .footer {
+    height: $footer-height;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding-right: 30%;
+  }
+
 }

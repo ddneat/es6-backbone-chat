@@ -1,3 +1,6 @@
+$gutter: 20px;
+$footer-height: 80px;
+
 @mixin ellipsis() {
   overflow: hidden;
   white-space: nowrap;
@@ -10,7 +13,7 @@
 
 @mixin breakpoint($point) {
   @if $point == desktop {
-    @media (min-width: 64em) { @content ; }
+    @media (min-width: 52em) { @content ; }
   }
   @else if $point == tablet {
     @media (max-width: 37.5em)  { @content ; }
