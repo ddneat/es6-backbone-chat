@@ -40,12 +40,12 @@ app.get('/', function(req, res) {
 });
 
 io.on('connection', function(socket) {
-    socket.emit('serverReady');
     Room.findOne({roomName: 'lobby'}, function(err, room) {
         if (err) throw err;
+        console.log(room);
         socket.room = room;
         socket.join('lobby');
-        socket.emit('userJoined', { room: room });
+        socket.emit('serverReady', {room: room});
     });
 
     Room.find({}, function(err, rooms) {

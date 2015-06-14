@@ -34,7 +34,8 @@ export default class RoomView extends Backbone.View {
     render() {
         this.$el.html(this.template({
             rooms: this.collection.toJSON(),
-            user: IOSocket.user
+            user: IOSocket.user,
+            currentRoom: IOSocket.room
         }));
 
         return this;

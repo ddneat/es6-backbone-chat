@@ -14,9 +14,9 @@ class RoomCollection extends Backbone.Collection {
             this.add(res.rooms);
         });
 
-        IOSocket.on('userJoined', (room) => {
-            console.log(room);
-            IOSocket.room == room;
+        IOSocket.on('serverReady', (room) => {
+            IOSocket.room = room;
+            this.trigger("change");
         });
     }
 

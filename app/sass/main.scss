@@ -32,20 +32,21 @@ html, body {
 @include breakpoint('desktop') {
 
   .main {
+    background: red;
     padding-right: 30%;
     padding-bottom: $footer-height + $gutter;
   }
 
-  .aside {
+  aside {
+    background: green;
     width: 30%;
     position: absolute;
     top: 0;
     right: 0;
-    padding: 0 $gutter;
+    bottom: 0;
   }
 
   .footer {
-    height: $footer-height;
     position: absolute;
     bottom: 0;
     left: 0;

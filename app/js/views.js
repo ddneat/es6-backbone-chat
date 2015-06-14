@@ -67,7 +67,7 @@ class ChatView extends Backbone.View {
         this.$el.find('.view-chat__messages').prepend(messageView.render().$el);
 
         var roomView = new RoomView();
-        this.$el.find('.view-chat__sidebar__nav').prepend(roomView.render().$el);
+        this.$el.find('.view-chat__sidebar__nav').append(roomView.render().$el);
 
         var userView = new UserView();
         this.$el.find('.view-chat__sidebar').append(userView.render().$el);

@@ -19,7 +19,7 @@
     </script>
     <script type="text/template" name="room">
         <% _.each(rooms, function(room) { %>
-        <li class="room-list__item" data-room-id="<%= room._id %>">
+        <li class="room-list__item <% if(room && currentRoom && (room._id == currentRoom.room._id)) { %> current-room <% } %>" data-room-id="<%= room._id %>">
             <div class="room-list__title"><%= room.roomName %></div>
             <% if(room.owner && room.owner._id && user && room.owner._id == user._id) { %>
             <button class="btn-remove btn-remove--room"></button>
@@ -35,19 +35,19 @@
         <% }); %>
     </script>
     <script type="text/template" name="chat">
+        <div class="main view-chat__messages">
+            <!-- message-list renders here -->
+        </div>
         <aside class="view-chat__sidebar">
             <nav class="view-chat__sidebar__nav">
-                <!-- room-list renders here -->
                 <form>
                     <input placeholder="Create Room" type="text" class="input-room">
                     <button class="btn-submit btn-submit--room">submit</button>
                 </form>
+                <!-- room-list renders here -->
             </nav>
             <!-- user-list renders here -->
         </aside>
-        <div class="main view-chat__messages">
-            <!-- message-list renders here -->
-        </div>
         <div class="footer view-chat__footer">
             <form>
                 <input type="text" class="input-message">
