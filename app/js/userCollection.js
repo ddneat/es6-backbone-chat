@@ -9,9 +9,9 @@ class UsersCollection extends Backbone.Collection {
 
         this.model = User;
 
-        this.create({title: 'User-A'});
-        this.create({title: 'User-B'});
-        this.create({title: 'User-C'});
+        IOSocket.on('serverReady', () => {
+            IOSocket.emit('newUser');
+        })
     }
 
 }

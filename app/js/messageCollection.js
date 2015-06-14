@@ -10,7 +10,7 @@ class MessageCollection extends Backbone.Collection {
         this.model = MessageModel;
 
         IOSocket.on('message', (res) => {
-            this.add({message: res.message});
+            this.add({message: res.message, user: res.user});
         });
 
     }

@@ -8,7 +8,8 @@ export default class Message extends Backbone.Model {
 
     defaults() {
         return {
-            message: ''
+            message: '',
+            user: {}
         };
     }
 

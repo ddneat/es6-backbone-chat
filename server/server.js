@@ -25,9 +25,12 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket) {
     socket.emit('serverReady');
 
-    socket.user = new User({userName: 'testuser'});
-    socket.user.save(function(err) {
-        console.log('newUser');
+    socket.on('newUser', function() {
+        var username = 'User-' + Math.floor(Math.random()*10001);
+        socket.user = new User({userName: username});
+        socket.user.save(function(err) {
+            console.log('newUser', username);
+        });
     });
 
     socket.on('disconnect', function() {
@@ -36,14 +39,8 @@ io.on('connection', function(socket) {
         });
     });
 
-    socket.on('newUser', function(userName) {
-        console.log('new user: ' + userName);
-        io.emit('newUser', userName);
-    });
-
     socket.on('newMessage', function(msg) {
-        console.log('new message: ' + msg);
-        io.emit('message', { message: msg, user: 'test' });
+        io.emit('message', { message: msg, user: socket.user });
     });
 
     socket.on('newRoom', function(msg) {
