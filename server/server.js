@@ -87,6 +87,7 @@ io.on('connection', function(socket) {
             socket.join(roomName);
             Room.find({}, function(err, rooms) {
                 if (err) throw err;
+                socket.emit('userJoined', { room: socket.room });
                 io.emit('updateRooms', {rooms: rooms});
             });
         });
