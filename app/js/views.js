@@ -44,6 +44,7 @@ class ChatView extends Backbone.View {
             'click .btn-submit--message': 'submitMessage',
             'click .btn-submit--room': 'submitRoom',
             'click .btn-remove--room': 'removeRoom',
+            'click .room-list__item': 'joinRoom',
             'keyup .input-message': 'submitMessageOnEnter',
             'keyup .input-room': 'submitRoomOnEnter'
         }
@@ -109,6 +110,14 @@ class ChatView extends Backbone.View {
         e.stopPropagation();
         var roomId = $(e.currentTarget).data('room-id');
         IOSocket.emit('removeRoom', roomId);
+    }
+
+    joinRoom(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var roomId = $(e.currentTarget).find('.btn-remove').data('room-id');
+        console.log('join:', roomId);
+        IOSocket.emit('joinRoom', roomId);
     }
 
 }

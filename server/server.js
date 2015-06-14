@@ -42,7 +42,7 @@ io.on('connection', function(socket) {
         var username = 'User-' + Math.floor(Math.random()*10001);
         socket.user = new User({userName: username});
         socket.user.save(function(err) {
-            console.log('newUser', socket.user);
+            socket.emit('newUser', socket.user);
         });
     });
 
@@ -56,14 +56,20 @@ io.on('connection', function(socket) {
         Room.find({'owner._id': user._id}).remove().exec();
     }
 
+    function leaveAllRooms(socket) {
+        for(var i = 0; i < socket.rooms.length; i++) {
+            socket.leave(socket.rooms[i]);
+        }
+    }
+
     socket.on('newMessage', function(msg) {
         io.emit('message', { message: msg, user: socket.user });
     });
 
-    socket.on('newRoom', function(room) {
-        socket.room = new Room({roomName: room, owner: socket.user});
+    socket.on('newRoom', function(roomName) {
+        socket.room = new Room({roomName: roomName, owner: socket.user});
         socket.room.save(function(err) {
-            socket.join(room);
+            socket.join(roomName);
             Room.find({}, function(err, rooms) {
                 if (err) throw err;
                 io.emit('updateRooms', {rooms: rooms});
@@ -84,13 +90,15 @@ io.on('connection', function(socket) {
         });
     });
 
-    socket.on('joinRoom', function(msg) {
-        console.log('join room: ' + msg);
-        socket.emit('userJoined', { message: 'dummy' });
-    });
+    socket.on('joinRoom', function(roomId) {
+        Room.findOne({_id: roomId}, function(err, room) {
+            if (err) throw err;
 
-    socket.on('leaveRoom', function(msg) {
-        console.log('leave room: ' + msg);
-        socket.emit('userLeft', { message: 'dummy' });
+            leaveAllRooms(socket);
+            socket.room = room;
+            console.log(socket.rooms);
+            socket.join(room.roomName);
+            socket.emit('userJoined', { room: room });
+        });
     });
 });
