@@ -31,8 +31,7 @@ var lobby = {};
 Room.findOne({roomName: 'lobby'}, function(err) {
     if (err) throw err;
     lobby = new Room({roomName: 'lobby', owner: {_id: 0}});
-    lobby.save(function(err) {
-    });
+    lobby.save(function(err) {});
 });
 
 app.get('/', function(req, res) {
