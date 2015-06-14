@@ -36,8 +36,9 @@ io.on('connection', function(socket) {
         });
     });
 
-    socket.on('newUser', function(msg) {
-        console.log('new user: ' + msg);
+    socket.on('newUser', function(userName) {
+        console.log('new user: ' + userName);
+        io.emit('newUser', userName);
     });
 
     socket.on('newMessage', function(msg) {

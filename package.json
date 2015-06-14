@@ -24,6 +24,7 @@
     "gulp-webserver": "^0.9.1",
     "jquery": "^2.1.4",
     "mocha": "^2.2.5",
+    "should": "^6.0.3",
     "underscore": "^1.8.3"
   },
   "dependencies": {
