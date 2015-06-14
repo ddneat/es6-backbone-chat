@@ -13,6 +13,8 @@ class MessageCollection extends Backbone.Collection {
             this.add({message: res.message, user: res.user});
         });
 
+        Backbone.on('RoomChanged', this.reset, this);
+
     }
 
     newMessage(text) {
