@@ -43,7 +43,7 @@ io.on('connection', function(socket) {
 
     socket.on('newMessage', function(msg) {
         console.log('new message: ' + msg);
-        io.emit('message', { message: 'world', user: 'test' });
+        io.emit('message', { message: msg, user: 'test' });
     });
 
     socket.on('newRoom', function(msg) {

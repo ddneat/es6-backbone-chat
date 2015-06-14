@@ -11,6 +11,11 @@
 @import 'views/_chat';
 @import 'views/_home';
 
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
 #app {
   width: 100%;
   height: 100%;

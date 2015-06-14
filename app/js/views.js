@@ -10,6 +10,8 @@ import MessageView from './messageView';
 import RoomView from './roomView';
 import UserView from './userView';
 
+import IOSocket from './ioSocket.js';
+
 class HomeView extends Backbone.View {
 
     className() {
@@ -93,8 +95,7 @@ class ChatView extends Backbone.View {
     submitMessage() {
         var text = this.$el.find('.input-message').val();
         if(text.length) {
-            console.log('submit message called', text);
-            // MessageCollection.create()
+            IOSocket.emit('newMessage', text);
             this.$el.find('.input-message').val('');
         }
     }
