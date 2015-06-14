@@ -11,11 +11,11 @@ class UsersCollection extends Backbone.Collection {
 
         IOSocket.on('serverReady', () => {
             IOSocket.emit('newUser');
-        })
+        });
 
         IOSocket.on('newUser', (user) => {
             IOSocket.user = user;
-        })
+        });
     }
 
 }

@@ -2,7 +2,7 @@ import Backbone from 'backbone';
 import RoomModel from './roomModel';
 import IOSocket from './ioSocket.js';
 
-class MessageCollection extends Backbone.Collection {
+class RoomCollection extends Backbone.Collection {
 
     constructor() {
         super();
@@ -15,10 +15,23 @@ class MessageCollection extends Backbone.Collection {
         });
 
         IOSocket.on('userJoined', (room) => {
+            console.log(room);
             IOSocket.room == room;
         });
     }
 
+    newRoom(roomName) {
+        IOSocket.emit('newRoom', roomName);
+    }
+
+    removeRoom(roomId) {
+        IOSocket.emit('removeRoom', roomId);
+    }
+
+    joinRoom(roomId) {
+        IOSocket.emit('joinRoom', roomId);
+    }
+
 }
 
-export default new MessageCollection();
+export default new RoomCollection();

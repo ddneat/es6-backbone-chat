@@ -14,6 +14,10 @@ class MessageCollection extends Backbone.Collection {
         });
 
     }
+
+    newMessage(text) {
+        IOSocket.emit('newMessage', text);
+    }
 }
 
 export default new MessageCollection();

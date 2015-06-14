@@ -1,5 +1,9 @@
-var should = require('should');
 var io = require('socket.io-client');
+var chai = require('chai');
+var spies = require('chai-spies');
+chai.use(spies);
+var should = chai.should()
+    , expect = chai.expect;
 
 var socketURL = 'http://localhost:3000';
 
@@ -8,70 +12,86 @@ var options ={
     'force new connection': true
 };
 
-var chatUser1 = {'name':'Tom'};
-var chatUser2 = {'name':'Sally'};
-var chatUser3 = {'name':'Dana'};
-
-describe("Chat Server",function(){
-    it('Should broadcast new user to all users', function(done){
+describe("Chat Server", () => {
+    xit('Should broadcast messages in room to everybody subscribed to room', (done) => {
         var client1 = io.connect(socketURL, options);
+        var receivedMessages = 0;
 
-        client1.on('connect', function(){
-            client1.emit('newUser', chatUser1);
+        function addReceivedMessage() {
+            receivedMessages++;
+            if(receivedMessages >= 3)
+            done();
+        }
+
+        var spy = chai.spy(addReceivedMessage);
+
+        client1.on('serverReady', () => {
+            client1.emit('newUser');
+
+            client1.on('message', (msg) => {
+                spy();
+            });
 
             var client2 = io.connect(socketURL, options);
 
-            client2.on('connect', function(data){
-                client2.emit('newUser', chatUser2);
+            client2.on('serverReady', () => {
+                client2.emit('newUser');
+
+                client2.on('message', (msg) => {
+                    spy();
+                });
+
+                var client3 = io.connect(socketURL, options);
+
+                client3.on('serverReady', () => {
+                    client3.emit('newUser');
+                    client3.emit('newRoom', 'testRoom');
+
+                    client3.on('message', (msg) => {
+                        spy();
+                    });
+
+                    client3.on('updateRooms', () => {
+                        client1.emit('newMessage', 'test');
+                    });
+
+                });
+
             });
 
-            client2.on('newUser', function(user){
-                user.name.should.equal(chatUser2.name);
+            client2.on('newUser', (user) => {
+                client2.disconnect();
+            });
+
+        });
+    });
+    it('Should broadcast new user to all users', (done) =>{
+        var client1 = io.connect(socketURL, options);
+
+        client1.on('serverReady', () => {
+            client1.emit('newUser');
+
+            var client2 = io.connect(socketURL, options);
+
+            client2.on('serverReady', (data) => {
+                client2.emit('newUser');
+            });
+
+            client2.on('newUser', (user) => {
                 client2.disconnect();
             });
 
         });
 
         var numUsers = 0;
-        client1.on('newUser', function(user){
+        client1.on('newUser', () => {
             numUsers += 1;
 
-            if(numUsers === 2){
-                user.name.should.equal(chatUser2.name);
+            if(numUsers === 1){
                 client1.disconnect();
                 done();
             }
         });
     });
-    it('Should be able to create new room', function(done){
-        var roomName = '/testRoom';
-        var client1 = io.connect(socketURL + roomName, options);
 
-        client1.on('connect', function(){
-            client1.emit('newUser', chatUser1);
-
-            var client2 = io.connect(socketURL + roomName, options);
-
-            client2.on('connect', function(data){
-                client2.emit('newUser', chatUser2);
-            });
-
-            client2.on('newUser', function(user){
-                user.name.should.equal(chatUser2.name);
-                client2.disconnect();
-            });
-
-        });
-
-        var numUsers = 0;
-        client1.on('newUser', function(user){
-            numUsers += 1;
-
-            if(numUsers === 2){
-                user.name.should.equal(chatUser2.name);
-                client1.disconnect();
-                done();
-            }
-        });
-    });
 });

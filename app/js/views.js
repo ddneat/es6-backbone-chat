@@ -10,8 +10,6 @@ import MessageView from './messageView';
 import RoomView from './roomView';
 import UserView from './userView';
 
-import IOSocket from './ioSocket.js';
-
 class HomeView extends Backbone.View {
 
     className() {
@@ -92,7 +90,7 @@ class ChatView extends Backbone.View {
     submitMessage() {
         var text = this.$el.find('.input-message').val();
         if(text.length) {
-            IOSocket.emit('newMessage', text);
+            MessageCollection.newMessage(text);
             this.$el.find('.input-message').val('');
         }
     }
@@ -100,7 +98,7 @@ class ChatView extends Backbone.View {
     submitRoom() {
         var roomName = this.$el.find('.input-room').val();
         if(roomName.length) {
-            IOSocket.emit('newRoom', roomName);
+            RoomCollection.newRoom(roomName);
             this.$el.find('.input-room').val('');
         }
     }
@@ -109,16 +107,15 @@ class ChatView extends Backbone.View {
         e.preventDefault();
         e.stopPropagation();
         var roomId = $(e.currentTarget).parent().data('room-id');
-        IOSocket.emit('removeRoom', roomId);
+        RoomCollection.removeRoom(roomId);
     }
 
     joinRoom(e) {
         e.preventDefault();
         e.stopPropagation();
         var roomId = $(e.currentTarget).data('room-id');
-        console.log('join:', roomId);
         MessageCollection.reset();
-        IOSocket.emit('joinRoom', roomId);
+        RoomCollection.joinRoom(roomId);
     }
 
 }
