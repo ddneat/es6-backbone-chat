@@ -31,6 +31,7 @@ class ChatView extends Backbone.View {
 
     constructor() {
         super(...arguments);
+
     }
 
     // Events Property
@@ -114,7 +115,6 @@ class ChatView extends Backbone.View {
         e.preventDefault();
         e.stopPropagation();
         var roomId = $(e.currentTarget).data('room-id');
-        MessageCollection.reset();
         RoomCollection.joinRoom(roomId);
     }
 

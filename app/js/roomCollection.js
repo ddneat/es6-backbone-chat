@@ -22,6 +22,7 @@ class RoomCollection extends Backbone.Collection {
         IOSocket.on('userJoined', (room) => {
             IOSocket.room = room;
             this.trigger("change");
+            Backbone.trigger('RoomChanged');
         });
     }
 
