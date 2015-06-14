@@ -48,9 +48,7 @@ io.on('connection', function(socket) {
 
     socket.on('disconnect', function() {
         User.remove(socket.user, function() {
-            removeRoomsOfUser(socket.user, function() {
-
-            });
+            removeRoomsOfUser(socket.user);
         });
     });
 
@@ -73,10 +71,16 @@ io.on('connection', function(socket) {
         });
     });
 
-    socket.on('removeRoom', function(msg) {
-        Room.find({}, function(err, rooms) {
-            if (err) throw err;
-            io.emit('updateRooms', {rooms: rooms});
+    socket.on('removeRoom', function(roomId) {
+        Room.findOne({'_id': roomId}, function(err, room) {
+            if(room && (room.owner._id.equals(socket.user._id))) {
+                room.remove(function() {
+                    Room.find({}, function(err, rooms) {
+                        if (err) throw err;
+                        io.emit('updateRooms', {rooms: rooms});
+                    });
+                })
+            }
         });
     });
 

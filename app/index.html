@@ -21,6 +21,7 @@
         <% _.each(rooms, function(room) { %>
         <li class="room-list__item">
             <div class="room-list__title"><%= room.roomName %></div>
+            <button data-room-id="<%= room._id %>" class="btn-remove btn-remove--room"></button>
         </li>
         <% }); %>
     </script>

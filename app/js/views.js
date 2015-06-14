@@ -45,6 +45,7 @@ class ChatView extends Backbone.View {
         return {
             'click .btn-submit--message': 'submitMessage',
             'click .btn-submit--room': 'submitRoom',
+            'click .btn-remove--room': 'removeRoom',
             'keyup .input-message': 'submitMessageOnEnter',
             'keyup .input-room': 'submitRoomOnEnter'
         }
@@ -103,10 +104,15 @@ class ChatView extends Backbone.View {
     submitRoom() {
         var roomName = this.$el.find('.input-room').val();
         if(roomName.length) {
-            console.log('submit room called', roomName);
             IOSocket.emit('newRoom', roomName);
             this.$el.find('.input-room').val('');
         }
+    }
+
+    removeRoom(e) {
+        e.preventDefault();
+        var roomId = $(e.currentTarget).data('room-id');
+        IOSocket.emit('removeRoom', roomId);
     }
 
 }
