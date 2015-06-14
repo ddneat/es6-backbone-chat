@@ -4,30 +4,47 @@
   background: url('images/bg.jpg');
   background-size: cover;
   text-align: center;
+  min-height: 300px;
+}
+
+.view-home__content {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  height: 300px;
+  margin-top: -150px;
+
 }
 
 .home-link {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-left: -150px;
-  margin-top: -40px;
+  display: block;
+  margin: 0 auto 30px;
   width: 300px;
   height: 80px;
-  border: 2px solid #000;
-  background: rgba(0,0,0,0.2);
-  color: #FFF;
+  line-height: 80px;
+  border: 3px solid #000;
+  background: #ccc;
+  color: #000;
   font-size: 30px;
   text-decoration: none;
-  padding-top: 20px;
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  -ms-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  transition: all 0.3s ease;
+  @include transition();
+
   &:hover {
-    background: rgba(0,0,0,1);
+    background: #000;
     border-color: #000;
-    color: limegreen;
+    color: #fff;
+  }
+}
+
+.github-link {
+  color: #aaa;
+  text-decoration: none;
+  border-bottom: 1px solid #ddd;
+  @include transition;
+
+  &:hover {
+    color: #555;
+    border-color: #555;
   }
 }
