@@ -31,7 +31,7 @@ export default class RoomView extends Backbone.View {
     }
 
     render() {
-        this.$el.show().html(this.template({
+        this.$el.html(this.template({
             rooms: this.collection.toJSON()
         }));
 
