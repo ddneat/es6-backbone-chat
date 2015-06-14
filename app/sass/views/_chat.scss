@@ -4,6 +4,8 @@
 }
 
 .view-chat__sidebar {
+  background: $secondary-2;
+
   form {
     position: relative;
   }
@@ -40,15 +42,30 @@
     width: 100%;
     padding: 15px 100px 15px 15px;
     height: 40px;
+    border: 2px solid $primary-3;
+    outline: none;
     line-height: 100%;
-    background: #aaa;
+    background: $secondary-3;
+    @include transition;
+
+    &:focus {
+      border-color: $primary-1;
+    }
   }
 
   button {
     position: absolute;
-    right: 0;
-    bottom: 0;
+    background: $secondary-1;
+    color: $secondary-3;
+    right: 2px;
+    bottom: 2px;
     width: 100px;
-    height: 40px;
+    height: 36px;
+    @include transition;
+
+    &:hover {
+      background: $primary-1;
+      color: $secondary-3;
+    }
   }
 }

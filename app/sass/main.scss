@@ -32,13 +32,11 @@ html, body {
 @include breakpoint('desktop') {
 
   .main {
-    background: #999;
     padding-right: 30%;
     padding-bottom: $footer-height + $gutter;
   }
 
   aside {
-    background: #444;
     width: 30%;
     position: absolute;
     top: 0;
