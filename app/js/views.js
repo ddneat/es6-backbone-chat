@@ -101,10 +101,10 @@ class ChatView extends Backbone.View {
     }
 
     submitRoom() {
-        var text = this.$el.find('.input-room').val();
-        if(text.length) {
-            console.log('submit room called', text);
-            // RoomCollection.create()
+        var roomName = this.$el.find('.input-room').val();
+        if(roomName.length) {
+            console.log('submit room called', roomName);
+            IOSocket.emit('newRoom', roomName);
             this.$el.find('.input-room').val('');
         }
     }

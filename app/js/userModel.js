@@ -8,7 +8,7 @@ export default class User extends Backbone.Model {
 
     defaults() {
         return {
-            title: 'User'
+            userName: 'User'
         };
     }
 

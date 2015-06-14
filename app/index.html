@@ -20,14 +20,14 @@
     <script type="text/template" name="room">
         <% _.each(rooms, function(room) { %>
         <li class="room-list__item">
-            <div class="room-list__title"><%= room.title %></div>
+            <div class="room-list__title"><%= room.roomName %></div>
         </li>
         <% }); %>
     </script>
     <script type="text/template" name="user">
         <% _.each(users, function(user) { %>
         <li class="user-list__item">
-            <div class="user-list__title"><%= user.title %></div>
+            <div class="user-list__title"><%= user.userName %></div>
         </li>
         <% }); %>
     </script>

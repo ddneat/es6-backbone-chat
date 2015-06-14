@@ -8,7 +8,8 @@ export default class Room extends Backbone.Model {
 
     defaults() {
         return {
-            title: 'Room-0'
+            roomName: 'Room-0',
+            owner: {}
         };
     }
 

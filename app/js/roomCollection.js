@@ -9,8 +9,11 @@ class MessageCollection extends Backbone.Collection {
 
         this.model = RoomModel;
 
-        this.create({title: 'Room-1'});
-        this.create({title: 'Room-2'});
+        IOSocket.on('updateRooms', (res) => {
+            console.log(res.rooms);
+            this.reset();
+            this.add(res.rooms);
+        });
     }
 
 }
