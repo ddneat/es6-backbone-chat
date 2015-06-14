@@ -3,18 +3,21 @@
 
 .room-list__item {
   padding: 15px;
-  background: $secondary-1;
-  margin: 1px 0;
+  background: $primary-2;
+  margin: 2px 0;
   cursor: pointer;
   position: relative;
+  color: lighten($primary-1, 18%);
+
   @include transition;
 
   &:hover, &:focus {
-    background: $secondary-2;
+    background: $primary-1;
+    color: $primary-3;
   }
 
   &.current-room {
-    background: $primary-1;
+    background: $primary-3;
     color: $secondary-3;
 
     &:before {
@@ -23,7 +26,7 @@
       border: 10px solid transparent;
       position: absolute;
       left: -20px;
-      border-right-color: $primary-1;
+      border-right-color: $primary-3;
       top: 50%;
       margin-top: -10px;
     }

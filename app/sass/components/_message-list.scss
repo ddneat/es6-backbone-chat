@@ -14,7 +14,7 @@
 
 .message-list__content {
   display: inline-block;
-  background: $primary-1;
+  background: $primary-2;
   color: $secondary-3;
   padding: 10px 15px;
   border-radius: 3px;
@@ -27,7 +27,7 @@
     border: 10px solid transparent;
     position: absolute;
     left: -20px;
-    border-right-color: $primary-1;
+    border-right-color: $primary-2;
     top: 50%;
     margin-top: -10px;
   }
