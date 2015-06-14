@@ -19,9 +19,11 @@
     </script>
     <script type="text/template" name="room">
         <% _.each(rooms, function(room) { %>
-        <li class="room-list__item">
+        <li class="room-list__item" data-room-id="<%= room._id %>">
             <div class="room-list__title"><%= room.roomName %></div>
-            <button data-room-id="<%= room._id %>" class="btn-remove btn-remove--room"></button>
+            <% if(room.owner && room.owner._id && user && room.owner._id == user._id) { %>
+            <button class="btn-remove btn-remove--room"></button>
+            <% } %>
         </li>
         <% }); %>
     </script>

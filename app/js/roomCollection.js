@@ -15,7 +15,6 @@ class MessageCollection extends Backbone.Collection {
         });
 
         IOSocket.on('userJoined', (room) => {
-            console.log('user joined');
             IOSocket.room == room;
         });
     }

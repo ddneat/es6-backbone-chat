@@ -2,6 +2,7 @@ import $ from 'jquery';
 import _ from 'underscore';
 import Backbone from 'backbone';
 import RoomCollection from './roomCollection';
+import IOSocket from './ioSocket.js';
 
 export default class RoomView extends Backbone.View {
     constructor() {
@@ -32,7 +33,8 @@ export default class RoomView extends Backbone.View {
 
     render() {
         this.$el.html(this.template({
-            rooms: this.collection.toJSON()
+            rooms: this.collection.toJSON(),
+            user: IOSocket.user
         }));
 
         return this;

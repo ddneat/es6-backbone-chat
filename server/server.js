@@ -30,7 +30,7 @@ var Room = mongoose.model('Rooms', roomSchema);
 var lobby = {};
 Room.findOne({roomName: 'lobby'}, function(err) {
     if (err) throw err;
-    lobby = new Room({roomName: 'lobby', owner: {}});
+    lobby = new Room({roomName: 'lobby', owner: {_id: 0}});
     lobby.save(function(err) {
     });
 });
