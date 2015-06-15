@@ -1,19 +1,43 @@
 .message-list {
   overflow: scroll;
   height: 100%;
+  padding: 20px;
 }
 
 .message-list__item {
-  background: #ccc;
   line-height: 1.2;
-  padding: 5px 0;
 
-  &:nth-child(odd) {
-    background: #bbb;
+  + li {
+    margin-top: 15px;
   }
 }
 
+.message-list__content {
+  display: inline-block;
+  background: $primary-2;
+  color: $secondary-3;
+  padding: 10px 15px;
+  border-radius: 3px;
+  min-width: 60%;
+  position: relative;
+
+  &:before {
+    display: block;
+    content: '';
+    border: 10px solid transparent;
+    position: absolute;
+    left: -20px;
+    border-right-color: $primary-2;
+    top: 50%;
+    margin-top: -10px;
+  }
+}
+
+.message-list__user {
+  font-size: 11px;
+  margin-bottom: 5px;
+}
 
 .message-list__title {
-
+  font-size: 16px;
 }

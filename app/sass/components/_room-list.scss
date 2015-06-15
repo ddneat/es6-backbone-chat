@@ -2,17 +2,34 @@
 }
 
 .room-list__item {
-  padding: 5px;
-  background: #ccc;
+  padding: 15px;
+  background: $primary-2;
+  margin: 2px 0;
   cursor: pointer;
-  @include transition();
+  position: relative;
+  color: lighten($primary-1, 18%);
+
+  @include transition;
 
   &:hover, &:focus {
-    background: #a9a9a9;
+    background: $primary-1;
+    color: $primary-3;
   }
 
   &.current-room {
-    background: #666666;
+    background: $primary-3;
+    color: $secondary-3;
+
+    &:before {
+      display: block;
+      content: '';
+      border: 10px solid transparent;
+      position: absolute;
+      left: -20px;
+      border-right-color: $primary-3;
+      top: 50%;
+      margin-top: -10px;
+    }
   }
 }
 

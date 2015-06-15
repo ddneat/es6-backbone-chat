@@ -1,14 +1,26 @@
 .btn-remove {
-  background-color: $primary-2;
+  background-color: $cta-0;
 }
 
 .btn-remove--room {
   width: 20px;
   height: 20px;
-  border-radius: 20px;
+  line-height: 20px;
+  border-radius: 3px;
   padding-top: 1px;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  margin-top: -10px;
+  opacity: 0.5;
+  @include transition;
+
   &:before {
     content: 'x';
     color: #FFF;
+  }
+
+  &:hover {
+    opacity: 1;
   }
 }
