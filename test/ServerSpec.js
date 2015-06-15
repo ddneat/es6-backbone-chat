@@ -13,55 +13,53 @@ var options ={
 };
 
 describe("Chat Server", () => {
-    xit('Should broadcast messages in room to everybody subscribed to room', (done) => {
+    it('Should join lobby on removed room', () => {
         var client1 = io.connect(socketURL, options);
-        var receivedMessages = 0;
-
-        function addReceivedMessage() {
-            receivedMessages++;
-            if(receivedMessages >= 3)
-            done();
-        }
-
-        var spy = chai.spy(addReceivedMessage);
 
         client1.on('serverReady', () => {
             client1.emit('newUser');
 
-            client1.on('message', (msg) => {
-                spy();
+            var room = {};
+
+            client1.emit('newRoom', 'testRoom');
+
+            client1.on('userJoined', (res) => {
+                if(res.room.roomName == 'testRoom') {
+                    room = res.room;
+                    client1.emit('removeRoom', room._id);
+                } else {
+                    res.room.roomName.should.equal('lobby');
+                }
             });
 
-            var client2 = io.connect(socketURL, options);
 
-            client2.on('serverReady', () => {
-                client2.emit('newUser');
+        });
+    });
+    it('Should join lobby on connect', () => {
+        var client1 = io.connect(socketURL, options);
 
-                client2.on('message', (msg) => {
-                    spy();
-                });
+        client1.on('serverReady', () => {
+            client1.emit('newUser');
 
-                var client3 = io.connect(socketURL, options);
-
-                client3.on('serverReady', () => {
-                    client3.emit('newUser');
-                    client3.emit('newRoom', 'testRoom');
-
-                    client3.on('message', (msg) => {
-                        spy();
-                    });
-
-                    client3.on('updateRooms', () => {
-                        client1.emit('newMessage', 'test');
-                    });
-
-                });
-
+            client1.on('serverReady', (res) => {
+                res.room.roomName.should.equal('lobby');
             });
 
-            client2.on('newUser', (user) => {
-                client2.disconnect();
+
+        });
+    });
+    it('Should join room', () => {
+        var client1 = io.connect(socketURL, options);
+
+        client1.on('serverReady', () => {
+            client1.emit('newUser');
+
+            client1.emit('newRoom', 'testRoom');
+
+            client1.on('userJoined', (res) => {
+                res.room.roomName.should.equal('testRoom');
             });
+
 
         });
     });
