@@ -41,7 +41,6 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket) {
     Room.findOne({roomName: 'lobby'}, function(err, room) {
         if (err) throw err;
-        console.log(room);
         socket.room = room;
         socket.join('lobby');
         socket.emit('serverReady', {room: room});
@@ -92,12 +91,44 @@ io.on('connection', function(socket) {
         });
     });
 
+    function findClientsSocket(roomId, namespace) {
+        var res = []
+            , ns = io.of(namespace ||"/");    // the default namespace is "/"
+
+        if (ns) {
+            for (var id in ns.connected) {
+                if(roomId) {
+                    var index = ns.connected[id].rooms.indexOf(roomId) ;
+                    if(index !== -1) {
+                        res.push(ns.connected[id]);
+                    }
+                } else {
+                    res.push(ns.connected[id]);
+                }
+            }
+        }
+        return res;
+    }
+
+    function removeAllClientsFromRoom(room) {
+        var clients = findClientsSocket(room.roomName) ;
+        Room.findOne({roomName: 'lobby'}, function(err, lobby) {
+            if (err) throw err;
+            for(var i = 0; i < clients.length; i++) {
+                clients[i].room = lobby;
+                clients[i].join('lobby');
+                clients[i].emit('userJoined', { room: lobby });
+            }
+        });
+    }
+
     socket.on('removeRoom', function(roomId) {
         Room.findOne({'_id': roomId}, function(err, room) {
             if(room && room.owner && (room.owner._id.equals(socket.user._id))) {
                 room.remove(function() {
                     Room.find({}, function(err, rooms) {
                         if (err) throw err;
+                        removeAllClientsFromRoom(room)
                         io.emit('updateRooms', {rooms: rooms});
                     });
                 })
@@ -106,6 +137,10 @@ io.on('connection', function(socket) {
     });
 
     socket.on('joinRoom', function(roomId) {
+        changeRoom(roomId, socket);
+    });
+
+    function changeRoom(roomId, socket) {
         Room.findOne({_id: roomId}, function(err, room) {
             if (err) throw err;
 
@@ -114,5 +149,5 @@ io.on('connection', function(socket) {
             socket.join(room.roomName);
             socket.emit('userJoined', { room: room });
         });
-    });
+    }
 });
