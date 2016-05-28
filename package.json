@@ -1,7 +1,7 @@
 {
   "name": "es6-backbone-chat",
   "version": "1.0.0",
-  "description": "",
+  "description": "Chat with Backbone, MongoDB and ES6",
   "main": "index.js",
   "scripts": {
     "test": "gulp test"
