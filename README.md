@@ -1,7 +1,7 @@
 # ES6-Backbone-Chat
 
 * [14pixels](https://github.com/14pixels)
-* [davidneat](https://github.com/davidneat)
+* [davidspinat](https://github.com/davidspinat)
 
 ## Start Application
 
